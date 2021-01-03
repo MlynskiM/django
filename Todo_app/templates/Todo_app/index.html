@@ -1,0 +1,83 @@
+{% extends 'Todo_app/base.html' %}
+
+{% load crispy_forms_tags %}
+
+    {% block content %}
+    
+    <div class="container-fluid ">
+        <div class="row">
+            
+          <nav class="col-md-2 d-none d-md-block  sidebar ">
+            <div class="sidebar-sticky">
+              <ul class="nav flex-column float-left">
+                <li class="nav-item ">
+                    <a class="nav-link active text-primary" style="font-size: 1.2em !important;" href="{% url 'index'  %}">
+                        <i class="fa fa-home" ></i> <span class="ml-1">Dashboard </span>
+                    </a>
+                  </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link active text-primary" href="{% url 'index' filter='shopping' %}">
+                    <i class="fa fa-shopping-bag "></i> <span class="ml-1">Shopping</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-primary" href="{% url 'index' filter='school' %}">
+                        <i class="fa fa-graduation-cap"></i> <span class="ml-1"> School</span>
+                    </a>
+                  </li>
+               
+                  <li class="nav-item">
+                    <a class="nav-link active text-primary" href="{% url 'index' filter='work' %}">
+                        <i class="fa fa-briefcase"></i> <span class="ml-1"> Work</span>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link active text-primary" href="{% url 'index' filter='self_teach' %}">
+                        <i class="fa fa-clipboard"></i> <span class="ml-1">Self-Teach</span>
+                    </a>
+                  </li>
+               
+                
+                
+              </ul>
+            </div>
+          </nav>
+  
+          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 "><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+            <div id="content ">
+                <form  method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="form-row ">
+                        <div class="form-group col-md-6 mb-0 ">
+                            {{ form.content|as_crispy_field }}
+                    </div>
+                        <div class="form-group col-md-6 mb-0">
+                            {{ form.task|as_crispy_field }}
+                        </div>
+                    </div>
+                        <button type="submit" class="btn btn-primary btn-block">Add Task</button>
+                </form>
+                <ul class="list-group">
+                    {% for task in latest_task_list %}
+                        <li class="list-group-item {{task.s_type}} bg-dark border-primary">
+        
+                            {{ task.task_text }}  
+                            
+                            <a  href="{% url 'delete_task' task.id %}" class="btn btn-danger  float-right ml-2"><i class="fa fa-trash text-white"></i></a>
+                            <a   href="{% url 'change_line' task.id %}" id="finished" class="btn btn-primary  ml-2 float-right"><i class="fa fa-check text-white"></i></a>
+                            
+                            
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+  
+          
+          </main>
+        </div>
+      </div>
+      
+   
+    {% endblock %}

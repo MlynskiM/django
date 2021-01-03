@@ -1,0 +1,9 @@
+.done {
+    text-decoration: line-through;
+}
+.done:hover{
+    text-decoration: line-through !important;
+}
+h1 {
+    letter-spacing: 0.12em;
+}
